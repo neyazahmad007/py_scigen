@@ -1,0 +1,21 @@
+digraph Balaam {
+    layout=dot;
+    node [shape=box];
+
+    0 [label="NODE_LABEL_GENERIC"];
+    1 [label="NODE_LABEL_GENERIC"];
+    2 [label="NODE_LABEL_GENERIC"];
+    3 [label="NODE_LABEL_GENERIC"];
+    4 [label="NODE_LABEL_GENERIC"];
+    5 [label="NODE_LABEL_GENERIC"];
+
+    0 -> 1 [label="EDGE_LABEL"];
+    0 -> 2 [label="EDGE_LABEL"];
+    0 -> 3 [label="EDGE_LABEL"];
+    1 -> 0 [label="EDGE_LABEL"];
+    3 -> 4 [label="EDGE_LABEL"];
+    4 -> 5 [label="EDGE_LABEL"];
+    4 -> 3 [label="EDGE_LABEL"];
+    4 -> 0 [label="EDGE_LABEL"];
+    5 -> 3 [label="EDGE_LABEL"];
+}

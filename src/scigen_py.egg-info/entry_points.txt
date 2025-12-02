@@ -1,0 +1,5 @@
+[console_scripts]
+scigen = scigen.cli:main
+scigen-diagram = scigen.cli:generate_diagram
+scigen-graph = scigen.cli:generate_graph
+scigen-paper = scigen.cli:generate_paper

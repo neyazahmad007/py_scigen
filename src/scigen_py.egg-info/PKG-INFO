@@ -1,0 +1,310 @@
+Metadata-Version: 2.4
+Name: scigen-py
+Version: 2.0.0
+Summary: Modern Python implementation of SCIgen - automatic CS paper generator
+Author: SCIgen Team
+License: GPL-2.0-or-later
+Project-URL: Homepage, https://pdos.csail.mit.edu/archive/scigen/
+Project-URL: Repository, https://github.com/strib/scigen
+Keywords: paper,generator,science,satire,academic
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Text Processing
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pydantic>=2.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: click>=8.0
+Requires-Dist: jinja2>=3.0
+Requires-Dist: matplotlib>=3.5
+Requires-Dist: networkx>=3.0
+Requires-Dist: pygraphviz>=1.11
+Requires-Dist: rich>=13.0
+Requires-Dist: loguru>=0.7
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0; extra == "dev"
+Requires-Dist: pytest-benchmark>=4.0; extra == "dev"
+Requires-Dist: hypothesis>=6.0; extra == "dev"
+Requires-Dist: black>=23.0; extra == "dev"
+Requires-Dist: mypy>=1.0; extra == "dev"
+Requires-Dist: pylint>=2.17; extra == "dev"
+Requires-Dist: ruff>=0.1; extra == "dev"
+Requires-Dist: pre-commit>=3.0; extra == "dev"
+Requires-Dist: ipython>=8.0; extra == "dev"
+Provides-Extra: doc
+Requires-Dist: sphinx>=7.0; extra == "doc"
+Requires-Dist: sphinx-rtd-theme>=1.3; extra == "doc"
+Requires-Dist: myst-parser>=2.0; extra == "doc"
+Dynamic: license-file
+
+# SCIgen-py: Modern Python Implementation
+
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Type checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)](http://mypy-lang.org/)
+
+A complete reimplementation of [SCIgen](https://pdos.csail.mit.edu/archive/scigen/) in modern Python, designed for accuracy, maintainability, and extensibility.
+
+## What is SCIgen?
+
+SCIgen is an automatic paper generator that produces random Computer Science research papers, including graphs, figures, and citations. It uses a hand-written context-free grammar to form all elements of the papers.
+
+This Python implementation provides **feature parity** with the original Perl version while adding:
+
+- 🏗️ **Modern architecture** following SOLID principles
+- 🧪 **Comprehensive test coverage** (>80%)
+- 📊 **Enhanced visualization** with matplotlib and GraphViz
+- 🔍 **Type safety** with full type hints and mypy
+- 📚 **Better documentation** and API references
+- 🚀 **CI/CD integration** with automated testing
+- 🐳 **Docker support** for reproducible builds
+- 📈 **Observability** with structured logging
+
+## Features
+
+- **Paper Generation**: Complete LaTeX papers with abstract, introduction, methodology, evaluation, related work, and conclusions
+- **Figure Generation**: Automatic creation of graphs, diagrams, and charts
+- **Citation Management**: Automatic BibTeX generation
+- **Customization**: Configurable authors, system names, and paper structure
+- **Reproducibility**: Seed-based generation for consistent results
+
+## Quick Start
+
+### Installation
+
+```bash
+# Install from source
+git clone <repository>
+cd python_based
+pip install -e .
+
+# Or install with development dependencies
+pip install -e ".[dev]"
+```
+
+### Basic Usage
+
+```bash
+# Generate a paper with default authors
+scigen-paper --output paper.pdf
+
+# Generate with custom authors
+scigen-paper --author "John Doe" --author "Jane Smith" --output paper.pdf
+
+# Generate with a specific seed for reproducibility
+scigen-paper --seed 12345 --author "Alice" --output paper.pdf
+
+# Generate a graph
+scigen-graph --seed 42 --output graph.eps
+
+# Generate a system diagram
+scigen-diagram --sysname "MySystem" --seed 100 --output diagram.eps
+```
+
+### Python API
+
+```python
+from scigen import PaperGenerator, GrammarEngine
+from scigen.config import GeneratorConfig
+
+# Configure the generator
+config = GeneratorConfig(
+    seed=12345,
+    authors=["Alice", "Bob"],
+    pretty_print=True
+)
+
+# Generate a paper
+generator = PaperGenerator(config)
+paper = generator.generate()
+
+# Save to file
+paper.save_latex("output/paper.tex")
+paper.save_pdf("output/paper.pdf")
+```
+
+## Architecture
+
+SCIgen-py follows a modular, layered architecture:
+
+```
+┌─────────────────────────────────────┐
+│         CLI / API Layer             │
+├─────────────────────────────────────┤
+│      Paper Generation Pipeline      │
+│  (Orchestrates all components)      │
+├─────────────────────────────────────┤
+│  ┌──────────┐  ┌──────────┐  ┌────┐│
+│  │ Grammar  │  │ Figure   │  │Text││
+│  │ Engine   │  │Generator │  │Proc││
+│  └──────────┘  └──────────┘  └────┘│
+├─────────────────────────────────────┤
+│       Domain Models & Data          │
+│    (Rules, Paper, Section, etc.)    │
+├─────────────────────────────────────┤
+│    Infrastructure & Utilities       │
+│   (Logging, Config, I/O, etc.)      │
+└─────────────────────────────────────┘
+```
+
+### Key Components
+
+- **GrammarEngine**: Context-free grammar parser and expander
+- **PaperGenerator**: High-level paper generation orchestrator
+- **FigureGenerator**: Creates graphs and diagrams
+- **TextProcessor**: Handles formatting, LaTeX escaping, and prettification
+- **RuleLoader**: Loads and validates grammar rules from data files
+
+## Development
+
+### Setup Development Environment
+
+```bash
+# Clone and install with dev dependencies
+git clone <repository>
+cd python_based
+pip install -e ".[dev]"
+
+# Install pre-commit hooks
+pre-commit install
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=scigen --cov-report=html
+
+# Run specific test categories
+pytest -m "not slow"  # Skip slow tests
+pytest tests/unit/    # Only unit tests
+pytest tests/integration/  # Only integration tests
+```
+
+### Code Quality
+
+```bash
+# Format code
+black src/ tests/
+
+# Type checking
+mypy src/
+
+# Linting
+pylint src/
+ruff check src/
+
+# Run all checks (done automatically by pre-commit)
+pre-commit run --all-files
+```
+
+### Project Structure
+
+```
+python_based/
+├── src/scigen/           # Main package
+│   ├── core/             # Core grammar and generation logic
+│   ├── generators/       # Paper, graph, diagram generators
+│   ├── models/           # Domain models and data structures
+│   ├── processors/       # Text processing and formatting
+│   ├── utils/            # Utilities and infrastructure
+│   ├── data/             # Grammar rules and templates
+│   └── cli.py            # Command-line interface
+├── tests/                # Test suite
+│   ├── unit/             # Unit tests
+│   ├── integration/      # Integration tests
+│   └── fixtures/         # Test data and fixtures
+├── docs/                 # Documentation
+├── examples/             # Example scripts and outputs
+└── docker/               # Docker configuration
+```
+
+## Design Principles
+
+This implementation follows industry best practices:
+
+1. **SOLID Principles**: Each component has a single responsibility
+2. **Dependency Injection**: Loose coupling through interfaces
+3. **Type Safety**: Full type hints for better IDE support and error detection
+4. **Test-Driven**: Comprehensive unit and integration tests
+5. **Documentation**: Extensive docstrings and external documentation
+6. **Observability**: Structured logging and debug modes
+7. **Configuration**: External configuration management
+
+## Comparison with Perl Version
+
+| Feature | Perl Version | Python Version |
+|---------|-------------|----------------|
+| Paper Generation | ✅ | ✅ |
+| Graph Generation | ✅ | ✅ |
+| Diagram Generation | ✅ | ✅ |
+| LaTeX Output | ✅ | ✅ |
+| PDF Output | ✅ | ✅ |
+| Type Safety | ❌ | ✅ |
+| Unit Tests | ❌ | ✅ (>80% coverage) |
+| Documentation | Basic | Comprehensive |
+| CI/CD | ❌ | ✅ |
+| Docker Support | ❌ | ✅ |
+| Modern Packaging | ❌ | ✅ |
+| IDE Support | Limited | Full |
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes with tests
+4. Ensure all tests pass and code is formatted
+5. Submit a pull request
+
+## License
+
+This project is licensed under the GNU General Public License v2.0 or later - see the [LICENSE](LICENSE) file for details.
+
+This is a derivative work of the original SCIgen project by Jeremy Stribling, Max Krohn, and Dan Aguayo.
+
+## Citations
+
+If you use SCIgen in academic work, please cite:
+
+```bibtex
+@misc{scigen,
+  title={SCIgen - An Automatic CS Paper Generator},
+  author={Stribling, Jeremy and Krohn, Max and Aguayo, Dan},
+  howpublished={\url{https://pdos.csail.mit.edu/archive/scigen/}},
+  year={2005}
+}
+```
+
+## Acknowledgments
+
+- Original SCIgen authors: Jeremy Stribling, Max Krohn, and Dan Aguayo
+- The MIT PDOS group for the original implementation
+- All contributors to this Python reimplementation
+
+## Future Enhancements
+
+- [ ] Web interface for online paper generation
+- [ ] REST API for programmatic access
+- [ ] Additional output formats (HTML, Markdown)
+- [ ] ML-based text generation for more realistic papers
+- [ ] Support for different academic fields
+- [ ] Multi-language support
+- [ ] Enhanced figure generation with deep learning
+
+---
+
+**Note**: This is a satirical tool for entertainment and educational purposes. Generated papers should not be submitted to actual conferences or journals.
