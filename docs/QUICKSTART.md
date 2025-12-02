@@ -227,14 +227,6 @@ brew install mactex
 docker run -v $(pwd):/data thomasweise/docker-texlive pdflatex paper.tex
 ```
 
-## Next Steps
-
-- Read the [Architecture Documentation](docs/ARCHITECTURE.md)
-- Explore [Examples](examples/)
-- Check [Contributing Guide](CONTRIBUTING.md)
-- Run tests: `pytest`
-- Build documentation: `cd docs && make html`
-
 ## Getting Help
 
 - Open an issue on GitHub
