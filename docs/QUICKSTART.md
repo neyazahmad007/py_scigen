@@ -39,7 +39,7 @@ docker run -v $(pwd)/output:/output scigen-py scigen-paper --output /output/pape
 scigen-paper --output paper.tex
 
 # With custom authors
-scigen-paper --author "Alice" --author "Bob" --output paper.tex
+scigen-paper --author "Neyaz" --author "Bob" --output paper.tex
 
 # With specific seed for reproducibility
 scigen-paper --seed 12345 --author "Charlie" --output paper.tex

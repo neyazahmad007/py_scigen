@@ -16,7 +16,7 @@ This Python implementation achieves **full Perl compatibility** while introducin
 ### **Context Injection Pattern** 
 Superior to Perl's manual rule manipulation. Cleanly separates static grammar from runtime variables:
 ```python
-engine.set_context(SYSNAME="MySystem", AUTHOR_NAME=["Alice", "Bob"])
+engine.set_context(SYSNAME="MySystem", AUTHOR_NAME=["Neyaz", "Bob"])
 ```
 - Type-safe and testable
 - No grammar namespace pollution
@@ -25,11 +25,11 @@ engine.set_context(SYSNAME="MySystem", AUTHOR_NAME=["Alice", "Bob"])
 - See [PYTHONIC_IMPROVEMENTS.md](PYTHONIC_IMPROVEMENTS.md) for details
 
 ### **Modern Software Engineering**
-- 🏗️ **SOLID principles** with clean separation of concerns
-- 🔍 **Type safety** with comprehensive type hints
-- � **Modular design** with 33 well-organized modules
-- 🧪 **Better testability** through dependency injection
-- � **Clear documentation** and API structure
+-  **SOLID principles** with clean separation of concerns
+-  **Type safety** with comprehensive type hints
+-  **Modular design** with 33 well-organized modules
+-  **Better testability** through dependency injection
+-  **Clear documentation** and API structure
 
 ## Features
 
